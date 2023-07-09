@@ -4,6 +4,7 @@ import MyWalletLogo from "../components/MyWalletLogo"
 import { useState } from "react"
 import axios from 'axios';
 
+
 export default function SignUpPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -30,7 +31,7 @@ export default function SignUpPage() {
 
     setUser({name, email, password});
 
-    axios.post("http://localhost:5000/cadastro", user)
+    axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, user)
     .then(console.log('OK'))
     .catch(err => alert(err.response.data));
 
@@ -40,11 +41,11 @@ export default function SignUpPage() {
     <SingUpContainer>
       <form onSubmit={signUp}>
         <MyWalletLogo />
-        <input placeholder="Nome" type="text" value={name} onChange={e => setName(e.target.value)} />
-        <input placeholder="E-mail" type="email" value={email} onChange={e => setEmail(e.target.value)} />
-        <input placeholder="Senha" type="password" autocomplete="new-password" value={password} onChange={e => setPassword(e.target.value)} />
-        <input placeholder="Confirme a senha" type="password" autocomplete="new-password" value={confPass} onChange={e => setConfPass(e.target.value)} />
-        <button>Cadastrar</button>
+        <input placeholder="Nome" type="text" value={name} onChange={e => setName(e.target.value)} data-test="name" />
+        <input placeholder="E-mail" type="email" value={email} onChange={e => setEmail(e.target.value)} data-test="email" />
+        <input placeholder="Senha" type="password" autocomplete="new-password" value={password} onChange={e => setPassword(e.target.value)} data-test="password" />
+        <input placeholder="Confirme a senha" type="password" autocomplete="new-password" value={confPass} onChange={e => setConfPass(e.target.value)} data-test="conf-password" />
+        <button data-test="sign-up-submit">Cadastrar</button>
       </form>
 
       <Link>
