@@ -2,8 +2,6 @@ import styled from "styled-components"
 import { BiExit } from "react-icons/bi"
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai"
 import { Link } from "react-router-dom"
-import axios from 'axios';
-import { useEffect } from "react";
 
 export default function HomePage() {
   return (
@@ -40,11 +38,11 @@ export default function HomePage() {
 
 
       <ButtonsContainer>
-        <Link to='/nova-transacao/entrada'>
+        <Link to='/nova-transacao/entrada' data-test='new-income' >
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </Link>
-        <Link to='/nova-transacao/saida'>
+        <Link to='/nova-transacao/saida' data-test='new-expense' >
           <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>
         </Link>
