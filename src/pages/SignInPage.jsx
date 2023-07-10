@@ -1,7 +1,7 @@
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import MyWalletLogo from "../components/MyWalletLogo"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import axios from 'axios';
 
 export default function SignInPage() {
@@ -10,6 +10,7 @@ export default function SignInPage() {
   let user = {
     email: '', 
     password: ''};
+  const navigate = useNavigate();
 
   function signIn(e) {
     e.preventDefault();
@@ -22,7 +23,11 @@ export default function SignInPage() {
     user = {email, password};
 
     axios.post(`${import.meta.env.VITE_API_URL}/`, user)
-    .then(console.log('OK'))
+    .then((detail) => {
+      const token = detail.data
+      localStorage.setItem("token", token)
+      navigate('/home')
+    })
     .catch(err => alert(err.response.data))
   }
 
@@ -35,7 +40,7 @@ export default function SignInPage() {
         <button data-test="sign-in-submit" >Entrar</button>
       </form>
 
-      <Link>
+      <Link to='/cadastro'>
         Primeira vez? Cadastre-se!
       </Link>
     </SingInContainer>

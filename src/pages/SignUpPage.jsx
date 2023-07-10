@@ -44,7 +44,7 @@ export default function SignUpPage() {
         <button data-test="sign-up-submit">Cadastrar</button>
       </form>
 
-      <Link>
+      <Link to='/'>
         Já tem uma conta? Entre agora!
       </Link>
     </SingUpContainer>
