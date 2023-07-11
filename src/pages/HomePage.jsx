@@ -2,8 +2,24 @@ import styled from "styled-components"
 import { BiExit } from "react-icons/bi"
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai"
 import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 export default function HomePage() {
+  
+  const token = localStorage.getItem("token");
+  let headers = {'Authorization': `Bearer ${token}`};
+
+  let [transactions, setTransactions] = useState([{}]);
+
+  useEffect(() => {
+    headers = {'Authorization': `Bearer ${token}`};
+    axios.get(`${import.meta.env.VITE_API_URL}/home`, {headers: headers})
+    .then(list => {
+      list.data.map(t => setTransactions([...transactions, t]))
+    })
+  }, [])
+
   return (
     <HomeContainer>
       <Header>
@@ -13,21 +29,11 @@ export default function HomePage() {
 
       <TransactionsContainer>
         <ul>
-          <ListItemContainer>
-            <div>
-              <span>30/11</span>
-              <strong>Almoço mãe</strong>
-            </div>
-            <Value color={"negativo"}>120,00</Value>
-          </ListItemContainer>
-
-          <ListItemContainer>
-            <div>
-              <span>15/11</span>
-              <strong>Salário</strong>
-            </div>
-            <Value color={"positivo"}>3000,00</Value>
-          </ListItemContainer>
+          {transactions.map(item => {
+            console.log(transactions)
+          })}
+          
+          
         </ul>
 
         <article>
