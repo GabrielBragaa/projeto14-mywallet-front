@@ -26,6 +26,8 @@ export default function SignInPage() {
     .then((detail) => {
       const token = detail.data[0].token;
       const name = detail.data[0].name;
+      const email = detail.data[0].email;
+      localStorage.setItem("email", email);
       localStorage.setItem("name", name);
       localStorage.setItem("token", token);
       navigate('/home');

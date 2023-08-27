@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 export default function TransactionsPage() {
   const [value, setValue] = useState(0);
   const [description, setDescription] = useState('');
+  let email = localStorage.getItem("email");
   let token = localStorage.getItem("token");
   let headers = {'Authorization': `Bearer ${token}`};
-  let body = {value: 0, description: ''};
+  let body = {value: 0, description: '', email: ''};
   let params = (location.pathname).substring(16);
   const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ export default function TransactionsPage() {
       return alert('Preencha a descrição.')
     }
 
-    body = {value, description};
+    body = {value, description, email};
 
     axios.post(`${import.meta.env.VITE_API_URL}/nova-transacao/${params}`, body, {headers: headers})
     .then(() => {

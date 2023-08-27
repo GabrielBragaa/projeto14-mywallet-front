@@ -9,6 +9,7 @@ export default function HomePage() {
   
   const token = localStorage.getItem("token");
   const userName = localStorage.getItem("name");
+  const owner = localStorage.getItem("email");
   let headers = {'Authorization': `Bearer ${token}`};
   let [transactions, setTransactions] = useState([{}]);
 
@@ -16,24 +17,23 @@ export default function HomePage() {
     headers = {'Authorization': `Bearer ${token}`};
     axios.get(`${import.meta.env.VITE_API_URL}/home`, {headers: headers})
     .then(list => {
-      list.data.map(t => setTransactions([...transactions, t]))
+      list.data.map(t => {
+        transactions.push(t);
+        setTransactions(transactions);
+      })
     })
   }, [])
 
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, {userName}</h1>
+        <h1 data-test="user-name" >Olá, {userName}</h1>
         <BiExit />
       </Header>
 
       <TransactionsContainer>
         <ul>
-          {transactions.map(item => {
-            console.log(item)
-          })}
-          
-          
+        {transactions.map(item => console.log(transactions))}
         </ul>
 
         <article>
