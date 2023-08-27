@@ -8,8 +8,8 @@ import axios from "axios"
 export default function HomePage() {
   
   const token = localStorage.getItem("token");
+  const userName = localStorage.getItem("name");
   let headers = {'Authorization': `Bearer ${token}`};
-
   let [transactions, setTransactions] = useState([{}]);
 
   useEffect(() => {
@@ -23,14 +23,14 @@ export default function HomePage() {
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, Fulano</h1>
+        <h1>Olá, {userName}</h1>
         <BiExit />
       </Header>
 
       <TransactionsContainer>
         <ul>
           {transactions.map(item => {
-            console.log(transactions)
+            console.log(item)
           })}
           
           

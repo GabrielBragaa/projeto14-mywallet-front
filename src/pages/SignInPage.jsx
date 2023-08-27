@@ -24,9 +24,11 @@ export default function SignInPage() {
 
     axios.post(`${import.meta.env.VITE_API_URL}/`, user)
     .then((detail) => {
-      const token = detail.data
-      localStorage.setItem("token", token)
-      navigate('/home')
+      const token = detail.data[0].token;
+      const name = detail.data[0].name;
+      localStorage.setItem("name", name);
+      localStorage.setItem("token", token);
+      navigate('/home');
     })
     .catch(err => alert(err.response.data))
   }

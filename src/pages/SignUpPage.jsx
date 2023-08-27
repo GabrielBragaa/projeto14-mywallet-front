@@ -3,6 +3,7 @@ import styled from "styled-components"
 import MyWalletLogo from "../components/MyWalletLogo"
 import { useState } from "react"
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 
 export default function SignUpPage() {
@@ -15,10 +16,11 @@ export default function SignUpPage() {
     email: '',
     password: ''
   }
+  const navigate = useNavigate();
 
   function signUp(e) {
     e.preventDefault();
-  
+
     if (confPass !== password) {
       alert('As senhas não coincidem!');
       return;
@@ -29,7 +31,11 @@ export default function SignUpPage() {
     }
 
     axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, user)
-    .then(console.log('OK'))
+    .then(t => {
+      const userName = user.name;
+      localStorage.setItem("name", userName);
+      navigate('/home')
+    })
     .catch(err => alert(err.response.data));
   }
 
